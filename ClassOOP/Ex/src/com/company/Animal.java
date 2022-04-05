@@ -14,22 +14,27 @@ public class Animal {
     }
 
     public float getWeight() {
+
         return this.weight;
     }
 
     public String getName() {
+
         return this.name;
     }
 
     public void setName(String name) {
+
         this.name = name;
     }
 
     public void setWeight(float weight) {
+
         this.weight = weight;
     }
 
     public String getSay() {
+
         return "Name: " + name + ", weight: " + weight;
     }
 
@@ -39,6 +44,9 @@ public class Animal {
                 "name='" + name + '\'' +
                 ", weight=" + weight +
                 '}';
+
+
+
     }
 }
 

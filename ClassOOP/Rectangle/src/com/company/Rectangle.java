@@ -1,3 +1,5 @@
+package com.company;
+
 public class Rectangle {
     double width, height;
 
@@ -12,11 +14,9 @@ public class Rectangle {
     public double getArea() {
         return this.width * this.height;
     }
-
     public double getPerimeter() {
-        return (this.width + this.height) * 2;
+        return (this.width + this.height);
     }
-
     public String display() {
         return "Rectangle{" + "width=" + width + ", height=" + height + "}";
     }

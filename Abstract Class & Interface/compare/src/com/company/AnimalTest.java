@@ -8,17 +8,30 @@ public class AnimalTest {
         animals[0] = new Dog("Bolt");
         animals[1] = new Bird("AngryBird");
         animals[2] = new Fish("Nemo");
+//        for (Animal animal : animals) {
+//            if (animal instanceof Dog) {
+//                System.out.println(animal.makeSound());
+//                System.out.println(((Dog) animal).run());
+//            } else if (animal instanceof Fish) {
+//                System.out.println(((Fish) animal).swim());
+//                System.out.println(animal.makeSound());
+//            } else {
+//                System.out.println(((Bird) animal).fly());
+//                System.out.println(animal.makeSound()
+//                );
+//            }
+//        }
+
         for (Animal animal : animals) {
             if (animal instanceof Dog) {
-                System.out.println(animal.makeSound());
-                System.out.println(((Dog) animal).run());
+                ((Dog) animal).bark();
+                ((Dog) animal).run();
             } else if (animal instanceof Fish) {
-                System.out.println(((Fish) animal).swim());
-                System.out.println(animal.makeSound());
+                ((Fish) animal).swim();
             } else {
-                System.out.println(((Bird) animal).fly());
-                System.out.println(animal.makeSound()
-                );
+                ((Bird) animal).fly();
+                ((Bird) animal).fly();
+
             }
         }
 

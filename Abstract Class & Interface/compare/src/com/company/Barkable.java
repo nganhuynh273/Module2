@@ -1,5 +1,6 @@
 package com.company;
 
 public interface Barkable {
-    String makeSound();
+    //String makeSound();
+    public abstract  void bark();
 }

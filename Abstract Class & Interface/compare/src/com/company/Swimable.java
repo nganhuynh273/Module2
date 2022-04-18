@@ -1,5 +1,6 @@
 package com.company;
 
 public interface Swimable {
-    String swim();
+    //  String swim();
+    public abstract void swim();
 }

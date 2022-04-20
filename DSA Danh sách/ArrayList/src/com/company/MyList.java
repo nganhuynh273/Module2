@@ -16,25 +16,25 @@ public class MyList<E> {
 
     public MyList() {
         data = (E[]) new Object[DEFAULT_CAPACITY];
-     }
+    }
 
-     public MyList(int size) {
+    public MyList(int size) {
         data = (E[]) new Object[size];
-     }
+    }
 
-     public void ensureCapacity() {
+    public void ensureCapacity() {
         if (size > data.length) {
             data = Arrays.copyOf(data, size * 2);
         }
-     }
+    }
 
-     public void add(E element) {
+    public void add(E element) {
         size += 1;
         ensureCapacity();
         data[size - 1] = element;
-     }
+    }
 
-     public boolean remove (int index) {
+    public boolean remove(int index) {
         if (index >= 0 && index <= size) {
             for (int i = index; i < size; i++) {
                 data[i] = data[i + 1];
@@ -43,62 +43,64 @@ public class MyList<E> {
             return true;
         }
         return false;
-     }
+    }
 
-     public boolean contains(E o) {
+    public boolean contains(E o) {
         for (int i = 0; i < size; i++) {
             if (data[i].equals(o)) {
                 return true;
             }
         }
         return false;
-     }
+    }
 
-     public  int indexOf (E o) {
+    public int indexOf(E o) {
         for (int i = 0; i < size; i++) {
             if (data[i].equals(o)) {
                 return i;
             }
         }
         return -1;
-     }
+    }
 
-     public boolean add(E e, int index) {
+    public boolean add(E e, int index) {
         if (index >= 0 && index <= size) {
             size += 1;
             ensureCapacity();
-            for (int i = size -2; i >= index; i--) {
+            for (int i = size - 2; i >= index; i--) {
                 data[i + 1] = data[i];
             }
             data[index] = e;
             return true;
         }
         return false;
-     }
+    }
 
-     public E get(int index) {
+    public E get(int index) {
         if (index >= 0 && index <= size) {
             return data[index];
         }
         return null;
-     }
+    }
 
-     public int size() {
+    public int size() {
         return size;
-     }
+    }
 
-     public void clear() {
+    public void clear() {
         data = (E[]) new Object[DEFAULT_CAPACITY];
         size = 0;
-     }
+    }
 
-     public MyList clone() {
-        MyList<E> beta = new MyList<>(data.length);
-        for (E x : data) {
-            beta.add(x);
+    public MyList clone(){
+        MyList newlist = new MyList<>();
+        for (E element : data){
+           if(element != null){
+               newlist.add(element);
+           }
         }
-        return beta;
-     }
+        return newlist;
+    }
 
     @Override
     public String toString() {
@@ -107,4 +109,5 @@ public class MyList<E> {
                 ", data=" + Arrays.toString(data) +
                 '}';
     }
+
 }

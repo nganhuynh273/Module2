@@ -109,8 +109,8 @@ public class Main {
         System.out.println("============== QUẢN LÝ SẢN PHẨM ==============");
         System.out.println("|                                            |");
         System.out.println("|              1. Tất cả sản phẩm            |");
-        System.out.println("|                 5.Thời trang nam           *=*");
-        System.out.println("|                 6. Thời trang nữ            *=*");
+        System.out.println("|                 5.Thời trang nam           |");
+        System.out.println("|                 6. Thời trang nữ           |");
         System.out.println("|              2. Sản phẩm tồn kho           |");
         System.out.println("|              3. Sửa                        |");
         System.out.println("|              4. Xóa                        |");

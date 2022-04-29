@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/DSA Stack - Queue.iml" filepath="$PROJECT_DIR$/DSA Stack - Queue.iml" />
+      <module fileurl="file://$PROJECT_DIR$/CheckBrackets.iml" filepath="$PROJECT_DIR$/CheckBrackets.iml" />
     </modules>
   </component>
 </project>

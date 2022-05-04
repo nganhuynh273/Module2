@@ -1,5 +1,7 @@
 package com.company;
 
+import com.company.model.Product;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -41,15 +43,13 @@ public class ProductManager {
     }
 
     public boolean isNameAProductList(String name) {
-        boolean flag = false;
-        for (Product product : productList) {
-            if (name == product.getName()) {
-                flag = true;
-                break;
+        if (!productList.isEmpty()) {
+            for (Product products : productList) {
+                if (products.getName().equalsIgnoreCase(name))
+                    return true;
             }
-
         }
-        return flag;
+        return false;
     }
 
     public void addProduct() {
@@ -117,56 +117,55 @@ public class ProductManager {
 
 
                             switch (choice) {
-                                case '1' :
+                                case '1':
                                     System.out.print("Tên sản phẩm mới: ");
                                     String newName = sc.nextLine();
                                     product.setName(newName);
                                     break;
-                                case '2' :
+                                case '2':
                                     System.out.print("Id mới: ");
                                     int newID = sc.nextInt();
                                     product.setId(newID);
                                     break;
-                                case '3' :
+                                case '3':
                                     System.out.println("Giá mới : ");
                                     int newPrice = sc.nextInt();
                                     product.setPrice(newPrice);
                                     break;
-                                case '0' :
+                                case '0':
                                     menuManager();
                                     break;
                             }
-                        } while (choice !=0);
+                        } while (choice != 0);
                     }
                 }
             }
         }
     }
 
-    public void findProductInProductWithName() {
-        if (productList.isEmpty()) {
-            System.out.println("Sản phẩm này không có trong danh sách");
-        } else {
-            Scanner sc = new Scanner(System.in);
-            System.out.println("Sản phẩm cần tìm là : ");
-            String name = sc.nextLine();
-            if (isNameAProductList(name)) {
-                for (Product product : productList) {
-                    if (product.getName().equalsIgnoreCase(name)) {
-                        System.out.println(product);
-                    } else {
-                        System.out.println("Không có");
-                    }
-                }
+    public void findByName() {
+        int count = 0;
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Sản phẩm cần tìm là : ");
+        String name = sc.nextLine().toLowerCase();
+//            if (isNameAProductList(name)) {
+        for (Product product : productList) {
+            if (product.getName().toLowerCase().contains(name)) {
+                System.out.println(product);
+                count++;
             }
         }
+        if (count == 0) {
+            System.out.println("Sản phẩm này không có trong danh sách");
+        }
+//            }
+
     }
 
     public void deleteProductInProductWithId() {
         if (productList.isEmpty()) {
             System.out.println("Không có sản phẩm nào trong danh sách! ");
-        }
-        else {
+        } else {
             Scanner input = new Scanner(System.in);
             System.out.println("Id sản phẩm cần xóa: ");
             int id = input.nextInt();
@@ -185,7 +184,7 @@ public class ProductManager {
 
     public void displayProduct() {
         if (productList.isEmpty()) {
-            System.out.println("Không có sản phẩm nào trong danh sách" );
+            System.out.println("Không có sản phẩm nào trong danh sách");
         } else {
             int i = 1;
             for (Product product : productList) {
@@ -212,22 +211,22 @@ public class ProductManager {
             choice = change.nextLine().charAt(0);
 
             switch (choice) {
-                case '1' :
+                case '1':
                     addProduct();
                     break;
-                case '2' :
+                case '2':
                     setProductListWithId();
                     break;
-                case '3' :
-                    findProductInProductWithName();
+                case '3':
+                    findByName();
                     break;
-                case '4' :
+                case '4':
                     deleteProductInProductWithId();
                     break;
-                case '5' :
+                case '5':
                     displayProduct();
                     break;
-                case '0' :
+                case '0':
                     System.exit(0);
                     break;
                 default:
@@ -236,7 +235,7 @@ public class ProductManager {
         }
     }
 
-        }
+}
 
 
 //    public boolean existProduct(int id) {

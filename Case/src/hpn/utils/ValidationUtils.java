@@ -2,7 +2,7 @@ package hpn.utils;
 
 import java.util.regex.Pattern;
 
-public class Validation {
+public class ValidationUtils {
     public static final String USERNAME_REGEX = "^[a-z][a-z0-9_]{6,16}$";
     public static final String PASSWORD_REGEX = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$";
     public static final String NAME_REGEX = "^[A-Z]+([ ]?[A-Za-z])+";

@@ -4,7 +4,7 @@ import hpn.model.Order;
 
 import java.util.List;
 
-public interface IOderService {
+public interface IOrderService {
     List<Order> getOrders();
     Order getOrderByID(long id);
     void add(Order newOrder);

@@ -1,4 +1,4 @@
-package hpn;
+package hpn.sort;
 
 import hpn.model.Product;
 

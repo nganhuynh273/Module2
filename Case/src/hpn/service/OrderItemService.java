@@ -1,5 +1,41 @@
 package hpn.service;
 
-public class OrderProductService implements IOrderItemService{
+import hpn.model.OrderItem;
+import hpn.utils.CSVUtils;
 
+import java.util.ArrayList;
+import java.util.List;
+
+public class OrderItemService implements IOrderItemService{
+    List<OrderItem> orderItems = new ArrayList<>();
+    public static String path = "data/orderItem.csv";
+    @Override
+    public List<OrderItem> getOrderItem() {
+        List<OrderItem> newOrderItems = new ArrayList<>();
+        List<String> records = CSVUtils.read(path);
+        for (String record : records) {
+            newOrderItems.add(new OrderItem(record));
+        }
+        return orderItems = newOrderItems;
+    }
+
+    @Override
+    public OrderItem getOrderItemByID(int id) {
+        for (OrderItem orderItem : orderItems) {
+            if (orderItem.getId() == id)
+                return orderItem;
+        }
+        return null;
+    }
+
+    @Override
+    public void add(OrderItem newOI) {
+        orderItems.add(newOI);
+        CSVUtils.write(path, orderItems);
+    }
+
+    @Override
+    public void update(OrderItem newODI) {
+        CSVUtils.write(path, orderItems);
+    }
 }

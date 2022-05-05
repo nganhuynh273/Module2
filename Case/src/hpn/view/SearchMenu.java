@@ -14,42 +14,42 @@ public class SearchMenu {
     static DecimalFormat formater = new DecimalFormat("###,###,###" + "vnđ");
 
     public static void searchMenu() {
-        productView.show();
+        productView.show(productService.getItem());
         boolean isChoice = true;
-        char choice = ' ';
+        int choice = -1;
         do {
-            System.out.println("✿ ✿ ✿ ✿ ✿ ✿ ✿ ✿ ✿ ✿ ✿ ✿ ✿ ✿ ✿ ✿ ✿ ✿ ✿ ✿ ✿ ✿ ✿ ✿");
-            System.out.println("✿                      TÌM KIẾM SẢN PHẨM                    ✿");
-            System.out.println("✿ ✿ ✿ ✿ ✿ ✿ ✿ ✿ ✿ ✿ ✿ ✿ ✿ ✿ ✿ ✿ ✿ ✿ ✿ ✿ ✿ ✿ ✿ ✿");
-            System.out.println("✿                                                           ✿");
-            System.out.println("✿                    1. Tìm kiếm theo ID                    ✿");
-            System.out.println("✿                    2. Tìm kiếm theo tên                   ✿");
-            System.out.println("✿                    3. Tìm kiếm theo số lượng              ✿");
-            System.out.println("✿                    4. Tìm kiếm theo giá                   ✿");
-            System.out.println("✿                    0. Quay lại                            ✿");
-            System.out.println("✿                                                           ✿");
-            System.out.println("✿ ✿ ✿ ✿ ✿ ✿ ✿ ✿ ✿ ✿ ✿ ✿ ✿ ✿ ✿ ✿ ✿ ✿ ✿ ✿ ✿ ✿ ✿ ✿");
+            System.out.println("✪✪✪✪✪✪✪✪✪✪✪✪✪✪✪✪✪✪✪✪✪✪✪✪✪✪✪✪✪✪✪✪✪✪✪✪✪✪✪✪✪✪✪✪✪");
+            System.out.println("✪                      TÌM KIẾM SẢN PHẨM                    ✪");
+            System.out.println("✪✪✪✪✪✪✪✪✪✪✪✪✪✪✪✪✪✪✪✪✪✪✪✪✪✪✪✪✪✪✪✪✪✪✪✪✪✪✪✪✪✪✪✪✪");
+            System.out.println("✪                                                           ✪");
+            System.out.println("✪                    1. Tìm kiếm theo ID                    ✪");
+            System.out.println("✪                    2. Tìm kiếm theo tên                   ✪");
+            System.out.println("✪                    3. Tìm kiếm theo số lượng              ✪");
+            System.out.println("✪                    4. Tìm kiếm theo giá                   ✪");
+            System.out.println("✪                    0. Quay lại                            ✪");
+            System.out.println("✪                                                           ✪");
+            System.out.println("✪✪✪✪✪✪✪✪✪✪✪✪✪✪✪✪✪✪✪✪✪✪✪✪✪✪✪✪✪✪✪✪✪✪✪✪✪✪✪✪✪✪✪✪✪");
             System.out.println();
-            System.out.print("Chọn\t=> ");
+            System.out.print("Chọn\t➨ ");
             try {
-                choice = scanner.nextLine().charAt(0);
+                choice = Integer.parseInt(scanner.nextLine());
             } catch (Exception e) {
-                choice = ' ';
+//                choice = ' ';
             }
             switch (choice) {
-                case '1':
+                case 1:
                     searchById();
                     break;
-                case '2':
+                case 2:
                     searchByName();
                     break;
-                case '3':
+                case 3:
                     searchByQuantity();
                     break;
-                case '4':
+                case 4:
                     searchByPrice();
                     break;
-                case '0':
+                case 0:
                     ManagerProductView.create();
                     isChoice = false;
                     break;
@@ -68,11 +68,11 @@ public class SearchMenu {
         try {
             int search = Integer.parseInt(scanner.nextLine());
             System.out.println("Kết quả :  '" + search + "' là : ");
-            System.out.printf("%-10s %-20s %-18s %-10s %-10s", "Id", "Tên Sản Phẩm", "Giá: ", "Số lượng");
+            System.out.printf("%-10s %-20s %-18s %-10s", "Id", "Tên Sản Phẩm", "Giá: ", "Số lượng");
             for (Product product : productList) {
                 if (product.getQuantity() == search) {
                     count++;
-                    System.out.printf("%-10s %-20s %-18s %-10s %-10s\n", product.getProductID(), product.getName(), formater.format(product.getPrice()),
+                    System.out.printf("%-10s %-20s %-18s %-10s\n", product.getProductID(), product.getName(), formater.format(product.getPrice()),
                             product.getQuantity());
                 }
             }
@@ -92,11 +92,11 @@ public class SearchMenu {
         try {
             int search = Integer.parseInt(scanner.nextLine());
             System.out.println("Kết quả :  '" + search + "' là : ");
-            System.out.printf("%-10s %-30s %-18s %-10s %-10s", "Id", "Tên Sản Phẩm", "Giá: ", "Số lượng");
+            System.out.printf("%-10s %-30s %-18s %-10s", "Id", "Tên Sản Phẩm", "Giá: ", "Số lượng");
             for (Product product : productList) {
                 if (product.getProductID() == search) {
                     count++;
-                    System.out.printf("%-10s %-30s %-18s %-10s %-10s\n", product.getProductID(), product.getName(), formater.format(product.getPrice()),
+                    System.out.printf("%-10s %-30s %-18s %-10s\n", product.getProductID(), product.getName(), formater.format(product.getPrice()),
                             product.getQuantity());
                 }
             }

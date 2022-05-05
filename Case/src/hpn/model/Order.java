@@ -62,12 +62,9 @@ public class Order {
 
     @Override
     public String toString() {
-        return "Order{" +
-                "orderID=" + orderID +
-                ", name='" + name + '\'' +
-                ", phone='" + phone + '\'' +
-                ", address='" + address + '\'' +
-                ", orderItems=" + orderItems +
-                '}';
+        return orderID +
+                "," + name +
+                "," + phone  +
+                "," + address;
     }
 }

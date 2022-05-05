@@ -1,5 +1,7 @@
 package hpn.view;
 
+import hpn.thread.Exit;
+
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -10,31 +12,32 @@ public class Menu {
     }
 
     public static void mainMenu() {
-        System.out.println("✤ ✤ ✤ ✤ ✤ ✤ ✤ ✤ ✤ ✤ ✤ ✤ ✤ ✤ ✤ ✤ ✤ ✤ ✤ ✤ ✤ ✤ ✤");
+        System.out.println("✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤");
         System.out.println("✤                      MAIN MENU                       ✤");
-        System.out.println("✤ ✤ ✤ ✤ ✤ ✤ ✤ ✤ ✤ ✤ ✤ ✤ ✤ ✤ ✤ ✤ ✤ ✤ ✤ ✤ ✤ ✤ ✤");
+        System.out.println("✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤");
         System.out.println("✤                                                      ✤");
         System.out.println("✤                 1. Quản lí sản phẩm                  ✤");
         System.out.println("✤                 2. Quản lí đơn hàng                  ✤");
         System.out.println("✤                                                      ✤");
-        System.out.println("✤ ✤ ✤ ✤ ✤ ✤ ✤ ✤ ✤ ✤ ✤ ✤ ✤ ✤ ✤ ✤ ✤ ✤ ✤ ✤ ✤ ✤ ✤");
+        System.out.println("✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤");
         System.out.print("Chọn chức năng \n➨ \t");
 
     }
 
     public static void orderMenu() {
-        System.out.println("✤ ✤ ✤ ✤ ✤ ✤ ✤ ✤ ✤ ✤ ✤ ✤ ✤ ✤ ✤ ✤ ✤ ✤ ✤ ✤ ✤ ✤");
+        System.out.println("✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤");
         System.out.println("✤                   QUẢN LÝ ĐƠN HÀNG                   ✤");
-        System.out.println("✤ ✤ ✤ ✤ ✤ ✤ ✤ ✤ ✤ ✤ ✤ ✤ ✤ ✤ ✤ ✤ ✤ ✤ ✤ ✤ ✤ ✤");
+        System.out.println("✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤");
         System.out.println("✤                                                      ✤");
         System.out.println("✤                   1. Tạo danh sách                   ✤");
         System.out.println("✤                   2. Xem danh sách                   ✤");
         System.out.println("✤                   0. Quay lại                        ✤");
         System.out.println("✤                                                      ✤");
-        System.out.println("✤ ✤ ✤ ✤ ✤ ✤ ✤ ✤ ✤ ✤ ✤ ✤ ✤ ✤ ✤ ✤ ✤ ✤ ✤ ✤ ✤  ✤");
+        System.out.println("✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤");
     }
 
     public static void menuProduct() {
+
         System.out.println("✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷");
         System.out.println("✷                  QUẢN LÝ SẢN PHẨM                    ✷");
         System.out.println("✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷");
@@ -53,6 +56,14 @@ public class Menu {
     }
 
     public static void exit() {
+        Exit exit = new Exit();
+        Thread thread1 = new Thread(exit);
+        thread1.start();
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         System.out.print("\t\t Bạn vừa thoát khỏi chương trình");
         System.exit(0);
     }
@@ -71,7 +82,7 @@ public class Menu {
                         ManagerOrderView.start();
                         break;
                     default:
-                        System.out.println("Chưa hợp lệ!!! Mời nhập lại!!!");
+                        System.out.println("Không hợp lệ, xin vui lòng nhập lại!");
                         flag = false;
                 }
             } while (!flag);
@@ -83,44 +94,38 @@ public class Menu {
     }
 
     public static void inputOrder() {
-        System.out.println("✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷");
+        System.out.println("✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷");
         System.out.println("✷                                               ✷");
-        System.out.println("✷           1. Nhấn 'c' để tiếp tục tạo đơn     ✷");
-        System.out.println("✷           2. Nhấn 'b' để quay lại             ✷");
-        System.out.println("✷           3. Nhấn 'p' để in hóa đơn           ✷");
+        System.out.println("✷           1. Nhấn 'a' để tiếp tục tạo đơn     ✷");
+        System.out.println("✷           2. Nhấn 'o' để quay lại             ✷");
+        System.out.println("✷           3. Nhấn 's' để in hóa đơn           ✷");
         System.out.println("✷           4. Nhấn 'e' để thoát                ✷");
         System.out.println("✷                                               ✷");
-        System.out.println("✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷");
+        System.out.println("✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷");
         System.out.print("➨ \t");
     }
 
     public static void inputUpdate() {
-        System.out.println("✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷");
+        System.out.println("✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷");
         System.out.println("✷        1. Cập nhật giá                ✷");
         System.out.println("✷        2. Cập nhật số lượng           ✷");
         System.out.println("✷        0. Quay lại                    ✷");
-        System.out.println("✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷");
+        System.out.println("✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷✷");
         System.out.println("Chọn chức năng");
         System.out.printf("➨ \t");
     }
 
 
     public static void removeConfirm() {
-        System.out.println("❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂");
+        System.out.println("❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂");
         System.out.println("❂                  BẠN CHẮC CHẮN MUỐN XÓA            ❂");
-        System.out.println("❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂");
+        System.out.println("❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂");
         System.out.println("❂                                                    ❂");
         System.out.println("❂              1. Nhấn y để xác nhận xóa             ❂");
-        System.out.println("❂              2. Nhấn b để quay lại                 ❂");
+        System.out.println("❂              2. Nhấn c để quay lại                 ❂");
         System.out.println("❂                                                    ❂");
-        System.out.println("❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂");
+        System.out.println("❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂❂");
         System.out.printf("➨ \t");
-    }
-    public static void writespace() {
-        for (int i = 0; i < 30; i++) {
-            System.out.println();
-        }
-        ManagerProductView.create();
     }
 
 //    public static void user() {

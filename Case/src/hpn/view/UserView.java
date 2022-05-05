@@ -1,12 +1,12 @@
 package hpn.view;
 
 import hpn.model.User;
-import hpn.service.LoginUser;
 import hpn.service.UserService;
+import hpn.thread.Login;
 
 import java.util.Scanner;
 
-public class UserView extends LoginUser {
+public class UserView {
     static Scanner scanner = new Scanner(System.in);
     private UserService userService;
 
@@ -16,6 +16,14 @@ public class UserView extends LoginUser {
     }
 
     public void loginUser() {
+        Login threadLogin = new Login();
+        Thread thread = new Thread(threadLogin);
+        thread.start();
+        try {
+            thread.join();
+        }catch (Exception e){
+            System.out.println(" ");
+        }
         System.out.println("✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤");
         System.out.println("✤                       |ĐĂNG NHẬP HỆ THỐNG|                 ✤");
         System.out.println("✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤");

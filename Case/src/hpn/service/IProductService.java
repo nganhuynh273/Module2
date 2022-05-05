@@ -14,4 +14,6 @@ public interface IProductService {
     void remove(long id);
 
     boolean exists(int id);
+
+    Product getProductByID(int productID);
 }

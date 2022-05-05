@@ -21,7 +21,7 @@ public class Product implements Comparator<Product> {
 
     }
 
-    public Product(long productID, String name, double price,
+    public Product(int productID, String name, double price,
                    int quantity) {
         this.productID = productID;
         this.name = name;

@@ -17,6 +17,7 @@ public class ProductService implements IProductService {
             newProducts.add(new Product(record));
         }
         return products = newProducts;
+
     }
 
 

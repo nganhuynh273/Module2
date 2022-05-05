@@ -5,6 +5,7 @@ import hpn.service.ProductService;
 
 import java.text.DecimalFormat;
 import java.util.List;
+import java.util.Random;
 import java.util.Scanner;
 
 public class ProductView {
@@ -13,74 +14,80 @@ public class ProductView {
     private DecimalFormat decimalFormat = new DecimalFormat("###,###,###" + " vnđ");
 
     public void add() {
-        productService.getItem();
-        System.out.println("Nhập ID sản phẩm");
+//        productService.getItem();
+//        System.out.println("Nhập ID sản phẩm");
+//        System.out.printf("➨ \t ");
+//        int id = scanner.nextInt();
+//        scanner.nextLine();
+//        if (productService.exists(id)) {
+//            System.out.println("ID tồn tại, mời nhập lại");
+//            add();
+        int id;
+        Random r = new Random();
+        int low = 100000;
+        int high = 999999;
+        do {
+            id = r.nextInt(high - low) + low;
+        } while (productService.exists(id));
+//        } else {
+        System.out.print("Nhập tên sản phẩm\n➨ \t");
+        String nameProduct = scanner.nextLine();
+//            while (!ValidationUtils.isNameProductValid(nameProduct)) {
+//                System.out.println("Đã thêm vào sản phẩm mới");
+//                nameProduct = scanner.nextLine();
+//        }
+        System.out.println("Nhập giá sản phẩm");
         System.out.printf("➨ \t ");
-        int id = scanner.nextInt();
-        scanner.nextLine();
-        if (productService.exists(id)) {
-            System.out.println("ID tồn tại, mời nhập lại");
-            add();
-        } else {
-            System.out.print("Nhập tên sản phẩm\n➨ \t");
-            String nameProduct = scanner.nextLine();
-
-            System.out.println("Nhập giá sản phẩm");
-            System.out.printf("➨ \t ");
-            double price;
-            do {
+        double price;
+        do {
+            price = Double.parseDouble(scanner.nextLine());
+            if (!(price > 50000 && price < 1000000)) {
+                System.out.print("Nhập sai giá!!! Lưu ý: \n Giá của sản phẩm phải nằm trong khoảng từ 50.000 đến 1.000.000\n ➨ \t");
                 price = Double.parseDouble(scanner.nextLine());
-                if (!(price > 50000 && price < 1000000)) {
-                    System.out.print("Nhập sai giá!!! Lưu ý: \n Giá của sản phẩm phải nằm trong khoảng từ 50.000 đến 1.000.000\n ➨ \t");
-                    price = Double.parseDouble(scanner.nextLine());
-                }
+            }
+        } while (!(price > 50000 && price < 1000000));
 
-                System.out.print("Nhập số lượng: ");
-                int quantity;
-                do {
-                    quantity = scanner.nextInt();
-                    if (!(quantity > 0 && quantity <= 99)) {
-                        System.out.println("Số lượng không được quá 99");
-                        System.out.print("➨ \t ");
-                    }
-//                    String provider = scanner.nextLine();
+        System.out.print("Nhập số lượng: ");
+        int quantity;
+        do {
+            quantity =Integer.parseInt(scanner.nextLine());
+            if (!(quantity > 0 && quantity <= 99)) {
+                System.out.println("Số lượng không được quá 99");
+                System.out.print("➨ \t ");
+            }
+        } while (!(quantity > 0 && quantity <= 99));
 //                String nameProduct = null;
-                    Product product = new Product(id, nameProduct, price, quantity);
-                    productService.addItem(product);
-                    System.out.println("Thêm thành công!!!");
+        Product product = new Product(id, nameProduct, price, quantity);
+        productService.addItem(product);
+        System.out.println("Sản phẩm đã được thêm thành công!");
 
-                    boolean flag = true;
-                    do {
-                        System.out.printf(" Nhấn 'a' để thêm sản phẩm \n Nhấn 'b' để quay lại \n Nhấn 'e' để thoát \n");
-                        System.out.print("➨ \t ");
-                        String choice = scanner.nextLine();
-                        switch (choice) {
-                            case "a":
-                                add();
-                                break;
-                            case "b":
-                                ManagerProductView.create();
-                                break;
-                            case "e":
-                                Menu.exit();
-                                System.exit(0);
-                                break;
-                            default:
-                                System.out.println("Xin vui lòng nhập lại!");
-                                flag = false;
-                        }
-                    } while (!flag);
-                } while (true);
 
-            } while (true);
-        }
-
+        boolean flag = true;
+        do {
+            System.out.printf(" Nhấn 'a' để thêm sản phẩm \n Nhấn 'b' để quay lại \n Nhấn 'e' để thoát \n");
+            System.out.print("➨ \t ");
+            String choice = scanner.nextLine();
+            switch (choice) {
+                case "a":
+                    add();
+                    break;
+                case "b":
+                    ManagerProductView.create();
+                    break;
+                case "e":
+                    Menu.exit();
+                    break;
+                default:
+                    System.out.println("Xin vui lòng nhập lại!");
+                    flag = false;
+            }
+        } while (!flag);
     }
 
 
     public void update() {
-        show();
-        System.out.print("Nhập ID cần sửa\n=> \t ");
+//        show();
+        System.out.print("Nhập ID cần sửa\n➨ \t ");
         try {
             int id = Integer.parseInt(scanner.nextLine());
             if (productService.exists(id)) {
@@ -104,41 +111,42 @@ public class ProductView {
                                 is = false;
                         }
                     } catch (Exception e) {
-                        // Nếu gặp lỗi! Cho nhập lại
                         update();
                     }
-                    boolean flag = true;
-                    do {
-                        System.out.print("Nhấn 'c' để tiếp tục cập nhật \nNhấn 'b' để quay lại \nNhấn 'e' để thoát... \n=> \t");
-                        String chon = scanner.nextLine();
-                        switch (chon) {
-                            case "c":
-                                update();
-                                break;
-                            case "b":
-                                ManagerProductView.create();
-                                break;
-                            case "e":
-                                Menu.exit();
-                                System.exit(0);
-                                break;
-                            default:
-                                System.out.println("Mời Nhập Lại");
-                                flag = false;
-                        }
-                    } while (!flag);
-                } while (false);
-            }else {
+                } while (!is);
+                boolean flag = true;
+                do {
+                    System.out.print("Nhấn 'c' để tiếp tục cập nhật \nNhấn 'b' để quay lại \nNhấn 'e' để thoát... \n=> \t");
+                    String chon = scanner.nextLine();
+                    switch (chon) {
+                        case "c":
+                            update();
+                            break;
+                        case "b":
+                            ManagerProductView.create();
+                            break;
+                        case "e":
+                            Menu.exit();
+                            System.exit(0);
+                            break;
+                        default:
+                            System.out.println("Mời Nhập Lại");
+                            flag = false;
+                    }
+                } while (!flag);
+            } else {
                 System.out.println("Mời Nhập Lại");
                 update();
             }
+
         } catch (Exception ex) {
+            ex.printStackTrace();
 
         }
     }
 
-    public void show() {
-        List<Product> productList = productService.getItem();
+    public void show(List<Product> productList) {
+//        List<Product> productList = productService.getItem();
         System.out.println("✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽" + " DANH SÁCH SẢN PHẨM ✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽" + "✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽");
         System.out.printf("%-10s %-30s %-20s %-10s", "Id", "Tên Sản Phẩm", "Giá: ", "Số lượng");
         System.out.println(" ");
@@ -150,18 +158,18 @@ public class ProductView {
 
 
     public void showProduct() {
-        show();
+//        show();
         boolean flag = true;
         do {
             System.out.println("✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿");
-            System.out.println("✿            Nhấn 'b' để trở lại                       ✿");
+            System.out.println("✿            Nhấn 'c' để trở lại                       ✿");
             System.out.println("✿            Nhấn 'e' để thoát chương trình            ✿");
             System.out.println("✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿");
             System.out.printf(" ➨ \t");
             String choice = scanner.nextLine();
             try {
                 switch (choice) {
-                    case "b":
+                    case "c":
                         ManagerProductView.create();
                         break;
                     case "e":
@@ -198,7 +206,7 @@ public class ProductView {
 
 
     public void remove() {
-        show();
+//        show();
         productService.getItem();
         System.out.printf("Nhập id sản phẩm \n➨ \t");
         int id = Integer.parseInt(scanner.nextLine());
@@ -213,10 +221,10 @@ public class ProductView {
                         productService.remove(product.getProductID());
                         System.out.println("Xóa thành công sản phẩm");
                         do {
-                            System.out.println("✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿");
+                            System.out.println("✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿");
                             System.out.println("✿       Nhấn '1' để quay lại      ✿");
                             System.out.println("✿       Nhấn '2' để thoát         ✿");
-                            System.out.println("✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿");
+                            System.out.println("✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿");
                             System.out.printf("➨ \t");
                             byte choice = Byte.parseByte(scanner.nextLine());
                             switch (choice) {
@@ -232,7 +240,7 @@ public class ProductView {
                             }
                         } while (!check);
                         break;
-                    case "b":
+                    case "c":
                         ManagerProductView.create();
                         break;
                     default:

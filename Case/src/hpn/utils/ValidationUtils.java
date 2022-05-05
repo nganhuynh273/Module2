@@ -9,6 +9,7 @@ public class ValidationUtils {
     public static final String PHONE_REGEX = "^0[1-9][0-9]{8,9}";
     public static final String EMAIL_REGEX = "^([a-zA-Z0-9!#$%&'*+\\/=?^_`{|}~-]+(?:\\.[a-zA-Z0-9!#$%&'*+\\/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?)$";
     public static final String ADDRESS_REGEX = "^\\d+( ?\\w+ ?[\\,\\-\\/]*)+$";
+    public static final String NAME_PRODUCT_REGEX = "^[a-z][a-z0-9_]{6,16}$";
 
     public static boolean isUserNameValid(String username) {
         return Pattern.compile(USERNAME_REGEX).matcher(username).matches();
@@ -18,7 +19,9 @@ public class ValidationUtils {
     public static boolean isPasswordValid(String password) {
         return Pattern.compile(PASSWORD_REGEX).matcher(password).matches();
     }
-
+    public static boolean isNameProductValid(String nameProduct) {
+        return Pattern.compile(NAME_PRODUCT_REGEX).matcher(nameProduct).matches();
+    }
     public static boolean isNameValid(String name) {
         return Pattern.compile(NAME_REGEX).matcher(name).matches();
     }

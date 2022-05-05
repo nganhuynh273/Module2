@@ -8,7 +8,7 @@ public class ManagerOrderView {
     public static void start() {
         Menu.orderMenu();
         OrderView orderView = new OrderView();
-        System.out.print("Chọn chức năng \n => \t");
+        System.out.print("Chọn chức năng \n ➨ \t");
         try {
             boolean flag = true;
             int choice = Integer.parseInt(scanner.nextLine());
@@ -24,12 +24,12 @@ public class ManagerOrderView {
                         ManagerProductView.create();
                         break;
                     default:
-                        System.out.println("Chưa hợp lệ !! Mời nhập lại");
+                        System.out.println("Không hợp lệ, vui lòng nhập lại!");
                         flag = false;
                 }
             } while (!flag);
         } catch (Exception e) {
-            System.out.println("Chưa hợp lệ, mời nhập lại!!!");
+            System.out.println("Không hợp lệ, vui lòng nhập lại!");
         }
     }
 }

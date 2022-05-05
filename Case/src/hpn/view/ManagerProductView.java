@@ -24,23 +24,20 @@ public class ManagerProductView {
                         SearchMenu.searchMenu();
                         break;
                     case 4:
-                          productView.show();
+//                          productView.show();
                         MenuSort.option();
                         break;
                     case 5:
                             productView.remove();
                         break;
                     case 6:
-                        Menu.writespace();
-                        break;
-                    case 9:
                         Menu.startMenu();
                         break;
                     case 0:
                         Menu.exit();
                         System.exit(0);
                     default:
-                        System.out.println("Chưa hợp lệ!! Mời nhập lại");
+                        System.out.println("Không hợp lệ, vui lòng nhập lại!");
                         flag = false;
                 }
             } while (!flag);

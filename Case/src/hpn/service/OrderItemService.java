@@ -3,6 +3,7 @@ package hpn.service;
 import hpn.model.OrderItem;
 import hpn.utils.CSVUtils;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +23,7 @@ public class OrderItemService implements IOrderItemService{
     @Override
     public OrderItem getOrderItemByID(int id) {
         for (OrderItem orderItem : orderItems) {
-            if (orderItem.getId() == id)
+            if (orderItem.getOrderID() == id)
                 return orderItem;
         }
         return null;
@@ -30,6 +31,7 @@ public class OrderItemService implements IOrderItemService{
 
     @Override
     public void add(OrderItem newOI) {
+        newOI.setCreatedAt(Instant.now());
         orderItems.add(newOI);
         CSVUtils.write(path, orderItems);
     }

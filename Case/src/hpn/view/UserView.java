@@ -22,11 +22,15 @@ public class UserView {
         try {
             thread.join();
         }catch (Exception e){
-            System.out.println(" ");
+            System.out.println("  ");
         }
-        System.out.println("✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤");
-        System.out.println("✤                       |ĐĂNG NHẬP HỆ THỐNG|                 ✤");
-        System.out.println("✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤");
+        System.out.println("");
+        System.out.println("");
+        System.out.println("✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤");
+        System.out.println("✤                                    ✤");
+        System.out.println("✤        |ĐĂNG NHẬP HỆ THỐNG|        ✤");
+        System.out.println("✤                                    ✤");
+        System.out.println("✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤✤");
 //        System.out.print("\tusername :\t");
 //        String username = scanner.nextLine();
 //        System.out.print("\tpassword :\t");

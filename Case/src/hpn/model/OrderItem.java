@@ -1,5 +1,7 @@
 package hpn.model;
 
+import java.time.Instant;
+
 public class OrderItem {
     private long id;
     private long orderID;
@@ -8,6 +10,7 @@ public class OrderItem {
     private double price;
     private int quantity;
     private double total;
+    private Instant createdAt;
 
     public OrderItem() {
     }
@@ -31,6 +34,19 @@ public class OrderItem {
         productID = Integer.parseInt(fields[4]);
         productName = fields[5];
         total = Double.parseDouble(fields[6]);
+        createdAt = Instant.parse(fields[7]);
+        ;
+    }
+
+
+    public Instant getCreatedAt() {
+
+        return createdAt;
+    }
+
+    public void setCreatedAt(Instant createdAt) {
+
+        this.createdAt = createdAt;
     }
 
     public long getId() {
@@ -90,14 +106,16 @@ public class OrderItem {
         this.total = total;
     }
 
+
     @Override
     public String toString() {
-        return id +
-                "," + price +
-                "," + quantity +
-                "," + orderID +
-                "," + productID +
-                "," + productName +
-                "," + total;
+//        return id +
+//                "," + price +
+//                "," + quantity +
+//                "," + orderID +
+//                "," + productID +
+//                "," + productName +
+//                "," + total + "," + createdAt;
+        return String.format("%s,%s,%s,%d,%s,%s,%s,%s",id, price, quantity, orderID, productID, productName, total, createdAt);
     }
 }

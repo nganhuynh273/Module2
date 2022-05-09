@@ -34,7 +34,6 @@ public class SearchMenu {
             try {
                 choice = Integer.parseInt(scanner.nextLine());
             } catch (Exception e) {
-//                choice = ' ';
             }
             switch (choice) {
                 case 1:
@@ -150,7 +149,7 @@ public class SearchMenu {
         boolean isChoice;
         System.out.println();
         do {
-            System.out.print("Nhấn 'R' để về menu tìm kiếm !");
+            System.out.print("Nhấn 'c' để về menu tìm kiếm !");
             try {
                 press = scanner.nextLine().charAt(0);
             } catch (Exception e) {
@@ -158,7 +157,7 @@ public class SearchMenu {
             }
             switch (press) {
                 case 'r':
-                case 'R': {
+                case 'c': {
                     SearchMenu.searchMenu();
                     isChoice = false;
                     break;

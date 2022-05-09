@@ -10,5 +10,5 @@ public interface IItemService {
     void update(Product product);
     void remove(long id);
     boolean exists(int id);
-    Product getChairByID(int id);
+    Product getProductByID(int id);
 }

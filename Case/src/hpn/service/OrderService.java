@@ -3,6 +3,7 @@ package hpn.service;
 import hpn.model.Order;
 import hpn.utils.CSVUtils;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +21,8 @@ public class OrderService implements IOrderService {
         return orders = newOrders;
     }
 
+
+
     @Override
     public Order getOrderByID(long id) {
         List<Order> orderList = getOrders();
@@ -31,10 +34,12 @@ public class OrderService implements IOrderService {
         return null;
     }
 
+
     @Override
     public void add(Order newOrder) {
 //        List<OrderItem> orderItems = getOrderItem();
 //        orderItems.add(OrderItem newOI);
+        newOrder.setCreatedAt(Instant.now());
         orders.add(newOrder);
         CSVUtils.write(path, orders);
     }

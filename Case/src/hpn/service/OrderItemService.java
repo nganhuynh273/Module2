@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class OrderItemService implements IOrderItemService{
-    List<OrderItem> orderItems = new ArrayList<>();
+    public List<OrderItem> orderItems = new ArrayList<>();
     public static String path = "data/orderItem.csv";
     @Override
     public List<OrderItem> getOrderItem() {

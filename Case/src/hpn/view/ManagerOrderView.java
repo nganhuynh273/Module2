@@ -15,13 +15,13 @@ public class ManagerOrderView {
             do {
                 switch (choice) {
                     case 1 :
-                        orderView.addOrder();
+                        orderView.enterInfoAdd();
                         break;
                     case 2 :
                         orderView.showAllOrder();
                         break;
                     case 0 :
-                        ManagerProductView.create();
+                        Menu.mainMenu();
                         break;
                     default:
                         System.out.println("Không hợp lệ, vui lòng nhập lại!");

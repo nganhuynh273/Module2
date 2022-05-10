@@ -59,6 +59,24 @@ public class OrderService implements IOrderService {
     }
 
     @Override
+    public boolean existByPhone(String phone) {
+        for (Order order : orders) {
+            if (order.getPhone().equals(phone))
+                return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean checkDuplicateFullName(String fullName) {
+        for (Order order : orders) {
+            if (order.getName().equals(fullName))
+                return true;
+        }
+        return false;
+    }
+
+    @Override
     public boolean exists(long id) {
         return getOrderByID(id) != null;
     }

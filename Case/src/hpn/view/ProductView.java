@@ -56,7 +56,7 @@ public class ProductView {
                 System.out.print("➨ \t ");
             }
         } while (!(quantity > 0 && quantity <= 100));
-//                String nameProduct = null;
+
         Product product = new Product(id, nameProduct, price, quantity);
         productService.addItem(product);
         System.out.println("Sản phẩm đã được thêm thành công!");
@@ -86,7 +86,7 @@ public class ProductView {
 
 
     public void update() {
-//        show();
+        show(productService.getItem());
         System.out.print("Nhập ID cần sửa\n➨ \t ");
         try {
             int id = Integer.parseInt(scanner.nextLine());
@@ -147,13 +147,16 @@ public class ProductView {
 
     public void show(List<Product> productList) {
 //        List<Product> productList = productService.getItem();
-        System.out.println("✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽" + " DANH SÁCH SẢN PHẨM ✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽" + "✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽");
+
+        System.out.println("✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽" + " DANH SÁCH SẢN PHẨM ✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽" + "✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽");
+        System.out.println("");
         System.out.printf("%-10s %-30s %-20s %-10s", "ID", "Tên Sản Phẩm", "Giá: ", "Số lượng");
         System.out.println(" ");
         for (Product product : productList) {
             System.out.printf("%-10s %-30s %-20s %-10s\n", product.getProductID(), product.getName(), decimalFormat.format(product.getPrice()), product.getQuantity());
         }
-        System.out.println("✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽\n");
+        System.out.println("");
+        System.out.println("✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽✽\n");
     }
 
 
@@ -197,7 +200,7 @@ public class ProductView {
 
     public void inputQuantity(int id) {
         Product product = productService.getProductByID(id);
-        System.out.print("Nhập số lượng \n➨ \t");
+        System.out.print("Nhập số lượng: \n➨ \t");
         int quantity = Integer.parseInt(scanner.nextLine());
         product.setQuantity(quantity);
         productService.update(product);
@@ -206,72 +209,9 @@ public class ProductView {
 
 
     public void remove() {
-//        do {
-//            List<Product> productList = productService.getItem();
-//            show(productList);
-//            System.out.printf("Nhập id sản phẩm \n➨ \t");
-//            int id = Integer.parseInt(scanner.nextLine());
-
-//            if (!productService.exists(id)) {
-//                System.out.println("Sai id. Nhap lai");
-//                continue;
-//            }
-//            productService.remove(id);
-//            System.out.println("da xoa");
-//            int choice = Integer.parseInt(scanner.nextLine());
-//            if (choice == 9)
-//                break;
-
-//            Product product = productService.getProductByID(id);
-
-//            if (product != null) {
-//                boolean check = true;
-//                Menu.removeConfirm();
-//                String chon = scanner.nextLine();
-//            }
-//                try {
-//                    switch (chon) {
-//                        case "y":
-//            productService.remove(product.getProductID());
-//                            System.out.println("Xóa thành công sản phẩm");
-//                            do {
-//                                System.out.println("✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿");
-//                                System.out.println("✿       Nhấn '1' để quay lại      ✿");
-//                                System.out.println("✿       Nhấn '2' để thoát         ✿");
-//                                System.out.println("✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿");
-//                                System.out.printf("➨ \t");
-//                                byte choice = Byte.parseByte(scanner.nextLine());
-//                                switch (choice) {
-//                                    case 1:
-//                                        ManagerProductView.create();
-//                                        break;
-//                                    case 2:
-//                                        Menu.exit();
-//                                        break;
-//                                    default:
-//                                        System.out.println("\t Nhập lại!!! ");
-//                                        check = false;
-//                                }
-//                            } while (!check);
-//                            break;
-//                        case "c":
-//                            ManagerProductView.create();
-//                            break;
-//                        default:
-//                            System.out.println("Vui lòng nhập lại!");
-//                    }
-//                } catch (Exception e) {
-//                    System.out.println("Chưa hợp lệ! Xin vui lòng nhập lại!");
-//                }
-//        } while (true);
-//    }
-//}
-
-
-//        productService.getItem();
             List<Product> productList = productService.getItem();
             show(productList);
-            System.out.printf("Nhập id sản phẩm \n➨ \t");
+            System.out.printf("Nhập ID sản phẩm \n➨ \t");
             int id = Integer.parseInt(scanner.nextLine());
             Product product = productService.getProductByID(id);
             if (product != null) {
@@ -282,10 +222,8 @@ public class ProductView {
                     switch (chon) {
                         case "y":
                             productService.remove(product.getProductID());
-//                        productService.getItem();
-//                        productService.remove(id);
                             System.out.println("Xóa thành công sản phẩm");
-
+                            show(productService.getItem());
                             do {
                                 System.out.println("✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿✿");
                                 System.out.println("✿       Nhấn '1' để quay lại       ✿");

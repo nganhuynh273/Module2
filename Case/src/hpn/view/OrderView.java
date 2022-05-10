@@ -4,32 +4,33 @@ import hpn.model.Order;
 import hpn.model.OrderItem;
 import hpn.model.Product;
 import hpn.service.*;
+import hpn.utils.ConvertUtils;
 import hpn.utils.InstantUtils;
 import hpn.utils.ValidationUtils;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
 public class OrderView {
     private IProductService productService;
-    private IOrderService oderService;
-    private IOrderItemService orderItemService;
+    private IOrderService orderService;
+    private OrderItemService orderItemService = new OrderItemService();
     Scanner scanner = new Scanner(System.in);
     DecimalFormat format = new DecimalFormat("###,###,###" + " VNĐ");
 
 
     public OrderView() {
         productService = new ProductService();
-        oderService = new OrderService();
+        orderService = new OrderService();
         orderItemService = new OrderItemService();
     }
 
     public OrderItem addOrderItems(long orderID) {
         orderItemService.getOrderItem();
         ProductView productView = new ProductView();
-//        long id = System.currentTimeMillis();
         int id;
         Random r = new Random();
         int low = 1;
@@ -37,8 +38,9 @@ public class OrderView {
         do {
             id = r.nextInt(high - low) + low;
         } while (productService.exists(id));
-//        long id = DateUtils.currentTimeSecond();
-        System.out.printf("Nhập ID sản phẩm  \n➨ \t");
+        List<Product> productList = productService.getItem();
+        productView.show(productList);
+        System.out.printf("Nhập ID sản phẩm:  \n➨ \t");
         int productID = Integer.parseInt(scanner.nextLine());
         while (!productService.exists(productID)) {
             System.out.println("ID không tồn tại ");
@@ -49,11 +51,11 @@ public class OrderView {
         Product product = productService.getProductByID(productID);
         double price = product.getPrice();
         int oldQuantity = product.getQuantity();
-        System.out.print("Nhập số lượng \n➨\t ");
+        System.out.print("Nhập số lượng: \n➨\t ");
         int quantity = Integer.parseInt(scanner.nextLine());
         while (!checkQuantityProduct(product, quantity)) {
             System.out.println("Vượt quá số lượng! Mời nhập lại");
-            System.out.println("Nhập số lượng \n➨ \t");
+            System.out.println("Nhập số lượng: \n➨ \t");
             quantity = Integer.parseInt(scanner.nextLine());
         }
 
@@ -68,6 +70,7 @@ public class OrderView {
     }
 
 
+
     public boolean checkQuantityProduct(Product product, int quantity) {
         if (quantity <= product.getQuantity()) {
             return true;
@@ -75,62 +78,26 @@ public class OrderView {
             return false;
     }
 
-    public void addOrder() {
+    public void addOrder(String name,String phone,String address) {
         try {
-            oderService.getOrders();
+            ArrayList<OrderItem> list = new ArrayList<>();
+            orderService.getOrders();
             long orderID = System.currentTimeMillis() / 1000;
-//            int orderID;
-//            Random r = new Random();
-//            int low = 1;
-//            int high = 9999;
-//            do {
-//                orderID
-//                        = r.nextInt(high - low) + low;
-//            } while (productService.exists(orderID));
-
-            System.out.println("Nhập họ và tên (vd: Huynh Phuong Ngan) ");
-            System.out.print(" ➨ ");
-            String name = scanner.nextLine();
-            while (!ValidationUtils.isNameValid(name)) {
-                System.out.println("Tên " + name + " không đúng." + " Vui lòng nhập lại!" + " (Tên phải viết hoa chữ cái đầu và không dấu)");
-                System.out.println("Nhập tên (vd: Huynh Phuong Ngan) ");
-                System.out.print(" ➨ ");
-                name = scanner.nextLine();
-            }
-
-            System.out.print("Nhập số điện thoại \n ➨ \t ");
-            String phone = scanner.nextLine();
-            while (!ValidationUtils.isPhoneValid(phone)) {
-                System.out.print("Số " + phone + " chưa hợp lệ . Mời nhập lại (Số điện thoại bắt đầu bằng số 0) \n " +
-                        " \t (SĐT phải đúng 10 số) (vd: 0795792763) \n ➨ \t");
-                phone = scanner.nextLine();
-            }
-
-            System.out.print("Nhập địa chỉ \n ➨ \t");
-            String address = scanner.nextLine();
-            while (!ValidationUtils.isAddressValid(address)) {
-                System.out.println("Địa chỉ " + address + " chưa hợp lệ. Mời nhập lại (Địa chỉ bắt đầu bằng số) \n " +
-                        "\t (vd: 350 Phan Chu Trinh, Hue)");
-                address = scanner.nextLine();
-            }
-
-//
-
             OrderItem orderItem = addOrderItems(orderID);
             Order order = new Order(orderID, name, phone, address);
             orderItemService.add(orderItem);
-            oderService.add(order);
-//
+            list.add(orderItem);
+            orderService.add(order);
             System.out.println("Bạn đã tạo đơn hàng thành công!");
 
-
+//            addOrder(orderItem,order);
             boolean flag = true;
             do {
                 Menu.inputOrder();
                 String choice = scanner.nextLine();
                 switch (choice) {
                     case "a":
-                        addOrder();
+                        addOrder(name,phone,address);
                         break;
                     case "o":
                         ManagerOrderView.start();
@@ -151,6 +118,43 @@ public class OrderView {
             ex.printStackTrace();
             System.out.println("Nhập sai! mời nhập lại");
         }
+    }
+
+    public void enterInfoAdd(){
+
+        System.out.println("Nhập họ và tên: (vd: Huỳnh Phương Ngân) ");
+        System.out.print(" ➨ ");
+        String name = scanner.nextLine();
+        String namecheck;
+        namecheck = ConvertUtils.removeAccent(name);
+        while (!ValidationUtils.isNameValid(namecheck)) {
+            System.out.println("Tên " + namecheck + " không đúng." + " Vui lòng nhập lại!" + " (Tên phải viết hoa chữ cái đầu)");
+            System.out.println("Nhập tên: (vd: Huỳnh Phương Ngân) ");
+            System.out.print(" ➨ ");
+            name = scanner.nextLine();
+        }
+
+        System.out.print("Nhập số điện thoại: \n ➨ \t ");
+        String phone = scanner.nextLine();
+        while (!ValidationUtils.isPhoneValid(phone)) {
+            System.out.print("Số " + phone + " chưa hợp lệ . Mời nhập lại (Số điện thoại bắt đầu bằng số 0) \n " +
+                    " \t (SĐT phải đúng 10 số) (vd: 0795792763) \n ➨ \t");
+            phone = scanner.nextLine();
+        }
+        while (orderService.existByPhone(phone)) {
+            System.out.println("Số này đã tồn tại, xin vui lòng nhập lại!");
+            phone = scanner.nextLine();
+        }
+
+
+        System.out.print("Nhập địa chỉ: \n ➨ \t");
+        String address = scanner.nextLine();
+        while (!ValidationUtils.isAddressValid(address)) {
+            System.out.println("Địa chỉ " + address + " chưa hợp lệ. Mời nhập lại (Địa chỉ bắt đầu bằng số) \n " +
+                    "\t (vd: 350 Phan Chu Trinh, Hue)");
+            address = scanner.nextLine();
+        }
+        addOrder(name,phone,address);
     }
 
 
@@ -179,6 +183,21 @@ public class OrderView {
                     format.format(orderItem.getTotal()));
             System.out.print("Ngày tạo đơn: " + order.getCreatedAt());
             System.out.println("");
+//           for (OrderItem orderItem1 : orderItemService.orderItems ) {
+//               if (order.getName() == order.getName() && order.getAddress() == order.getAddress() && order.getOrderID() == order.getOrderID()) {
+//                   System.out.printf("%-20s %-25s %-15s %-12s %-25s %-15s %-20s %-20s\n",
+//                           order.getName(),
+//                           order.getAddress(),
+//                           orderItem.getOrderID(),
+//                           orderItem1.getProductID(),
+//                           orderItem1.getProductName(),
+//                           format.format(orderItem1.getPrice()),
+//                           orderItem1.getQuantity(),
+//                           format.format(orderItem1.getTotal()));
+//                   System.out.print("Ngày tạo đơn: " + orderItem.getCreatedAt());
+//                   System.out.println("");
+//                   break;
+//               }
             System.out.println("❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃");
             boolean flag = true;
             do {
@@ -204,9 +223,15 @@ public class OrderView {
 
 
     public void showAllOrder() {
-        List<Order> orderList = oderService.getOrders();
+        List<Order> orderList = orderService.getOrders();
         List<OrderItem> orderItems = orderItemService.getOrderItem();
         OrderItem newOI = new OrderItem();
+        List<OrderItem> orders = orderItemService.getOrderItem();
+        double total = 0;
+        for (OrderItem orderItem : orders) {
+            total += orderItem.getTotal();
+        }
+
         try {
             System.out.println("❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃" +
                     " DANH SÁCH ORDER ❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃");
@@ -231,7 +256,7 @@ public class OrderView {
                 System.out.printf("%-12s %-13s %-23s %-15s %-12s %-25s %-20s %-10s %-20s\n",
                         InstantUtils.instantToFormat(order.getCreatedAt()),
                         order.getName(),
-                     order.getAddress(),
+                        order.getAddress(),
 
 
                         order.getOrderID(),
@@ -241,6 +266,8 @@ public class OrderView {
                         newOI.getQuantity(),
                         format.format(newOI.getTotal()));
             }
+            System.out.println("");
+            System.out.printf("%150s\n", "Tổng doanh thu: " + format.format(total));
             System.out.println("");
             System.out.println("❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃❃");
             boolean flag = true;

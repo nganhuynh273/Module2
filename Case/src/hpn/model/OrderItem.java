@@ -11,7 +11,6 @@ public class OrderItem {
     private int quantity;
     private double total;
     private Instant createdAt;
-
     public OrderItem() {
     }
 
@@ -35,7 +34,7 @@ public class OrderItem {
         productName = fields[5];
         total = Double.parseDouble(fields[6]);
         createdAt = Instant.parse(fields[7]);
-        ;
+
     }
 
 

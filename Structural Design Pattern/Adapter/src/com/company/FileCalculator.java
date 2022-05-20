@@ -1,0 +1,5 @@
+package com.company;
+
+public interface FileCalculator {
+    long calculateSize(String path);
+}
